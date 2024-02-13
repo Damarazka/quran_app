@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quran_app/pages/home_screen.dart';
 import 'package:quran_app/pages/splash_screen.dart';
 
 void main() {
@@ -15,7 +16,10 @@ class MainApp extends StatelessWidget {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true),
       initialRoute: SplashScreen.routeName,
-      routes: {SplashScreen.routeName: (context) => const SplashScreen()},
+      routes: {
+        SplashScreen.routeName: (context) => const SplashScreen(),
+        HomeScreen.routeName: (context) => const HomeScreen()
+      },
     );
   }
 }

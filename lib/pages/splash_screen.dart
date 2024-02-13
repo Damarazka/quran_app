@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quran_app/pages/home_screen.dart';
 import 'package:quran_app/theme.dart';
 
 class SplashScreen extends StatelessWidget {
@@ -52,7 +53,7 @@ class SplashScreen extends StatelessWidget {
                       child: InkWell(
                         borderRadius: BorderRadius.circular(25),
                         onTap: (){
-                          print('clicked');
+                          Navigator.pushNamed(context, HomeScreen.routeName);
                         },
                         child: Container(
                             padding: const EdgeInsets.symmetric(
