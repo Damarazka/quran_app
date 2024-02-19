@@ -66,7 +66,7 @@ BottomNavigationBarItem _bottomNavigationBarItem(
         label: label);
 
 DefaultTabController _body() => DefaultTabController(
-    length: 4,
+    length: 3,
     child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: NestedScrollView(
