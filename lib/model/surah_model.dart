@@ -29,7 +29,7 @@ class Surah {
       nama: json['nama'],
       nama_latin: json['nama_latin'],
       jumlah_ayat: json['jumlah_ayat'],
-      tempat_turun: json['tempat_turun'],
+      tempat_turun: json['tempat_turun'.toUpperCase()],
       arti: json['arti'],
       deskripsi: json['deskripsi'],
       audio: json['audio']);
