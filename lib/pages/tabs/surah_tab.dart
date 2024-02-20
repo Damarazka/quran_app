@@ -33,7 +33,7 @@ class TabSurah extends StatelessWidget {
   Widget _itemList({required BuildContext context, required Surah surah}) =>
       InkWell(
         onTap: () {
-          Navigator.pushNamed(context, DetailScreen.routeName,arguments: surah.nomor);
+          Navigator.pushNamed(context, DetailScreen.routeName,arguments: surah.nomor.toString());
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),

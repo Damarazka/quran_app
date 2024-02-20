@@ -20,7 +20,7 @@ class MainApp extends StatelessWidget {
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
-        DetailScreen.routeName : (context)=> DetailScreen(id : ModalRoute.of(context)?.settings.arguments as int)
+        DetailScreen.routeName : (context)=> DetailScreen(id : ModalRoute.of(context)?.settings.arguments as String)
       },
     );
   }

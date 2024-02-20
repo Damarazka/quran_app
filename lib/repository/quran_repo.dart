@@ -1,9 +1,8 @@
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/services.dart';
 import 'package:quran_app/model/ayat_model.dart';
 import 'package:quran_app/model/surah_model.dart';
+import 'package:http/http.dart' as http;
 
 class QuranRepository{
   Future<List<Surah>> getListSurah() async{
@@ -12,10 +11,12 @@ class QuranRepository{
   }
 
   Future<AyahModel> getListAyah(String id) async{
-    var response = await Dio().get("https://equran.id/api/surat/$id");
+    String url = ("https://equran.id/api/surat/$id");
+
+  var response = await http.get(Uri.parse(url));
 
     if (response.statusCode == 200) {
-      final body = jsonDecode(response.data);
+      final body = jsonDecode(response.body);
       return AyahModel.fromJson(body);
     }
     throw Exception("error");
