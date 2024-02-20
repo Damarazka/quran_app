@@ -80,7 +80,7 @@ class TabSurah extends StatelessWidget {
             Text(
               surah.nama,
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w500,
                   fontSize: 25,
                   color: Colors.black),
             ),

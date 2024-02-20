@@ -165,7 +165,7 @@ Column _salam() => Column(
                     "Ayah No : 1",
                     style: GoogleFonts.poppins(
                         fontSize: 12,
-                        fontWeight: FontWeight.w100,
+                        fontWeight: FontWeight.w500,
                         color: Colors.white),
                   )
                 ],
