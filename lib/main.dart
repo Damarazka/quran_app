@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quran_app/pages/detail_screen.dart';
 import 'package:quran_app/pages/home_screen.dart';
 import 'package:quran_app/pages/splash_screen.dart';
 
@@ -18,7 +19,8 @@ class MainApp extends StatelessWidget {
       initialRoute: SplashScreen.routeName,
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(),
-        HomeScreen.routeName: (context) => const HomeScreen()
+        HomeScreen.routeName: (context) => const HomeScreen(),
+        DetailScreen.routeName : (context)=> DetailScreen(id : ModalRoute.of(context)?.settings.arguments as int)
       },
     );
   }

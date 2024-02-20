@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/model/surah_model.dart';
+import 'package:quran_app/pages/detail_screen.dart';
 import 'package:quran_app/viewModel/surahviewmodel.dart';
 
 class TabSurah extends StatelessWidget {
@@ -31,7 +32,9 @@ class TabSurah extends StatelessWidget {
 
   Widget _itemList({required BuildContext context, required Surah surah}) =>
       InkWell(
-        onTap: () {},
+        onTap: () {
+          Navigator.pushNamed(context, DetailScreen.routeName,arguments: surah.nomor);
+        },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(children: [
@@ -77,8 +80,8 @@ class TabSurah extends StatelessWidget {
             Text(
               surah.nama,
               style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w800,
-                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
                   color: Colors.black),
             ),
           ]),
