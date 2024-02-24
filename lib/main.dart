@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:quran_app/pages/after_shalat.dart';
 import 'package:quran_app/pages/detail_screen.dart';
 import 'package:quran_app/pages/evening_screen.dart';
 import 'package:quran_app/pages/home_screen.dart';
@@ -22,9 +23,11 @@ class MainApp extends StatelessWidget {
       routes: {
         SplashScreen.routeName: (context) => const SplashScreen(),
         HomeScreen.routeName: (context) => const HomeScreen(),
-        DetailScreen.routeName : (context)=> DetailScreen(id : ModalRoute.of(context)?.settings.arguments as String),
-        MorningDzikr.routeName : (context) => const MorningDzikr(),
-        EveningDzikr.routeName : (context) => const EveningDzikr()
+        DetailScreen.routeName: (context) => DetailScreen(
+            id: ModalRoute.of(context)?.settings.arguments as String),
+        MorningDzikr.routeName: (context) => const MorningDzikr(),
+        EveningDzikr.routeName: (context) => const EveningDzikr(),
+        AfterShalat.routeName: (context) => const AfterShalat()
       },
     );
   }

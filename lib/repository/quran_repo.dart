@@ -4,6 +4,7 @@ import 'package:quran_app/model/ayat_model.dart';
 import 'package:quran_app/model/daily_model.dart';
 import 'package:quran_app/model/evening_model.dart';
 import 'package:quran_app/model/morning_model.dart';
+import 'package:quran_app/model/shalat_model.dart';
 import 'package:quran_app/model/surah_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -26,6 +27,11 @@ class QuranRepository {
   Future<List<Evening>> getListEvening() async {
     String data = await rootBundle.loadString('assets/data/dzikr-evening.json');
     return eveningFromJson(data);
+  }
+
+  Future<List<Shalat>> getListShalat() async {
+    String data = await rootBundle.loadString('assets/data/dzikr-after.json');
+    return shalatFromJson(data);
   }
 
   Future<AyahModel> getListAyah(String id) async {

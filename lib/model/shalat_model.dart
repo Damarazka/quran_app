@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-List<Shalat> dailyFromJson(String str) =>
+List<Shalat> shalatFromJson(String str) =>
     List<Shalat>.from(json.decode(str).map((x) => Shalat.fromJson(x)));
 
 class Shalat {
