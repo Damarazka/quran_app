@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/model/daily_model.dart';
-import 'package:quran_app/model/surah_model.dart';
 import 'package:quran_app/viewModel/dailyviewmodel.dart';
 
 class TabDoa extends StatelessWidget {
