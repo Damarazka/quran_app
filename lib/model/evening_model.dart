@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-List<Evening> dailyFromJson(String str) =>
+List<Evening> eveningFromJson(String str) =>
     List<Evening>.from(json.decode(str).map((x) => Evening.fromJson(x)));
 
 class Evening {
