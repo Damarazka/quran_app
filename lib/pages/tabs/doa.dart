@@ -49,6 +49,7 @@ class TabDoa extends StatelessWidget {
                   ),
                   const SizedBox(
                     width: 10,
+                    height: 10,
                   ),
                   Text(
                     dailyDoa.arabic.toString(),
@@ -57,6 +58,10 @@ class TabDoa extends StatelessWidget {
                         fontSize: 20,
                         color: Colors.black),
                   ),
+                  const SizedBox(
+                    width: 10,
+                    height: 10,
+                  ),
                   Text(
                     dailyDoa.translation.toString(),
                     style: GoogleFonts.poppins(
@@ -64,12 +69,20 @@ class TabDoa extends StatelessWidget {
                         fontSize: 16,
                         color: Colors.black),
                   ),
+                  const SizedBox(
+                    width: 10,
+                    height: 10,
+                  ),
                   Text(
                     dailyDoa.fawaid.toString(),
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Colors.black),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                    height: 10,
                   ),
                   Text(
                     dailyDoa.source.toString(),

@@ -51,6 +51,7 @@ class EveningDzikr extends StatelessWidget {
                   ),
                   const SizedBox(
                     width: 10,
+                    height: 10,
                   ),
                   Text(
                     evening.arabic.toString(),
@@ -59,6 +60,10 @@ class EveningDzikr extends StatelessWidget {
                         fontSize: 20,
                         color: Colors.black),
                   ),
+                  const SizedBox(
+                    width: 10,
+                    height: 10,
+                  ),
                   Text(
                     evening.translation.toString(),
                     style: GoogleFonts.poppins(
@@ -66,12 +71,20 @@ class EveningDzikr extends StatelessWidget {
                         fontSize: 16,
                         color: Colors.black),
                   ),
+                  const SizedBox(
+                    width: 10,
+                    height: 10,
+                  ),
                   Text(
                     evening.fawaid.toString(),
                     style: GoogleFonts.poppins(
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                         color: Colors.black),
+                  ),
+                  const SizedBox(
+                    width: 10,
+                    height: 10,
                   ),
                   Text(
                     evening.source.toString(),
