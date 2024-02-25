@@ -9,22 +9,19 @@ class AyahModel {
   String? audio;
   dynamic status;
   List<Ayat>? ayat;
-  SuratSelanjutnya? suratSelanjutnya;
-  dynamic suratSebelumnya;
 
-  AyahModel(
-      {this.nomor,
-      this.nama,
-      this.namaLatin,
-      this.jumlahAyat,
-      this.tempatTurun,
-      this.arti,
-      this.deskripsi,
-      this.audio,
-      this.status,
-      this.ayat,
-      this.suratSelanjutnya,
-      this.suratSebelumnya});
+  AyahModel({
+    this.nomor,
+    this.nama,
+    this.namaLatin,
+    this.jumlahAyat,
+    this.tempatTurun,
+    this.arti,
+    this.deskripsi,
+    this.audio,
+    this.status,
+    this.ayat,
+  });
 
   AyahModel.fromJson(Map<String, dynamic> json) {
     nomor = json['nomor'];
@@ -42,10 +39,6 @@ class AyahModel {
         ayat!.add(new Ayat.fromJson(v));
       });
     }
-    suratSelanjutnya = json['surat_selanjutnya'] != null
-        ? new SuratSelanjutnya.fromJson(json['surat_selanjutnya'])
-        : null;
-    suratSebelumnya = json['surat_sebelumnya'];
   }
 
   Map<String, dynamic> toJson() {
@@ -62,10 +55,6 @@ class AyahModel {
     if (this.ayat != null) {
       data['ayat'] = this.ayat!.map((v) => v.toJson()).toList();
     }
-    if (this.suratSelanjutnya != null) {
-      data['surat_selanjutnya'] = this.suratSelanjutnya!.toJson();
-    }
-    data['surat_sebelumnya'] = this.suratSebelumnya;
     return data;
   }
 }

@@ -1,3 +1,4 @@
+import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -12,40 +13,57 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AyahViewModel _viewModel = AyahViewModel();
+    final assetsAudioPlayer = AssetsAudioPlayer();
+
     return Scaffold(
-        body: FutureBuilder(
-      future: _viewModel.getListAyah(id),
-      builder: (context, AsyncSnapshot<AyahModel> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (snapshot.hasError) {
-          return Center(
-            child: Text('Error : ${snapshot.error}'),
-          );
-        } else if (snapshot.hasData) {
-          return ListView.separated(
+      appBar: AppBar(
+        title: const Text('Detail Ayat'),
+      ),
+      body: FutureBuilder(
+        future: _viewModel.getListAyah(id),
+        builder: (context, AsyncSnapshot<AyahModel> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else if (snapshot.hasData) {
+            return ListView.separated(
               itemBuilder: (context, index) => _itemList(
-                  context: context,
-                  ayat: snapshot.data!.ayat!.elementAt(index)),
+                context: context,
+                ayahModel: snapshot.data!,
+                ayat: snapshot.data!.ayat!.elementAt(index),
+                assetsAudioPlayer: assetsAudioPlayer,
+              ),
               separatorBuilder: (context, index) => Divider(
-                    color: Colors.grey.withOpacity(0.1),
-                    height: 1,
-                  ),
-              itemCount: snapshot.data!.ayat!.length);
-        } else {
-          return const Center(
-            child: Text("data not avalabel"),
-          );
-        }
-      },
-    ));
+                color: Colors.grey.withOpacity(0.1),
+                height: 1,
+              ),
+              itemCount: snapshot.data!.ayat!.length,
+            );
+          } else {
+            return const Center(
+              child: Text('Data tidak tersedia'),
+            );
+          }
+        },
+      ),
+    );
   }
 
-  Widget _itemList({required BuildContext context, required Ayat ayat}) =>
+  Widget _itemList({
+    required BuildContext context,
+    required Ayat ayat,
+    required AyahModel ayahModel,
+    required AssetsAudioPlayer assetsAudioPlayer,
+  }) =>
       InkWell(
         onTap: () {
-          Navigator.pushNamed(context, DetailScreen.routeName,
-              arguments: ayat.nomor.toString());
+          assetsAudioPlayer.open(
+            Audio.network(ayahModel.audio.toString()),
+          );
+          assetsAudioPlayer.play();
         },
         child: Padding(
           padding: const EdgeInsets.all(18),
@@ -64,12 +82,14 @@ class DetailScreen extends StatelessWidget {
                           height: 36,
                           width: 36,
                           child: Center(
-                              child: Text(
-                            ayat.nomor.toString(),
-                            style: GoogleFonts.poppins(
+                            child: Text(
+                              ayat.nomor.toString(),
+                              style: GoogleFonts.poppins(
                                 fontWeight: FontWeight.w500,
-                                color: Colors.black),
-                          )),
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
                         )
                       ],
                     ),
@@ -83,9 +103,10 @@ class DetailScreen extends StatelessWidget {
                       ayat.ar.toString(),
                       textAlign: TextAlign.end,
                       style: GoogleFonts.poppins(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 24,
-                          color: Colors.black),
+                        fontWeight: FontWeight.w500,
+                        fontSize: 24,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
                 ],
@@ -103,70 +124,15 @@ class DetailScreen extends StatelessWidget {
                   Text(
                     ayat.idn.toString(),
                     style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.black),
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
                   )
                 ],
               )
             ],
           ),
         ),
-        /* child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 16),
-          child: Row(children: [
-            Stack(
-              children: [
-                SvgPicture.asset('assets/svg/nomor_surah.svg'),
-                SizedBox(
-                  height: 36,
-                  width: 36,
-                  child: Center(
-                      child: Text(
-                    ayat.nomor.toString(),
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500, color: Colors.black),
-                  )),
-                )
-              ],
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(
-                    ayat.ar.toString(),
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.black),
-                  ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                    ayat.tr.toString(),
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.black),
-                  ),
-                  Text(
-                    ayat.idn.toString(),
-                    style: GoogleFonts.poppins(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 16,
-                        color: Colors.black),
-                  )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ]),
-        ), */
       );
 }
