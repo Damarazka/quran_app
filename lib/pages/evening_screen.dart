@@ -12,6 +12,12 @@ class EveningDzikr extends StatelessWidget {
     final EveningViewModel _viewModel = EveningViewModel();
     return Scaffold(
       appBar: AppBar(
+        title: Title(
+            color: Colors.blueAccent,
+            child: Text(
+              "Evening Dzikr",
+              style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+            )),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);

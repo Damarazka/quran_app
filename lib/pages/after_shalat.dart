@@ -12,6 +12,12 @@ class AfterShalat extends StatelessWidget {
     final ShalatViewModel _viewModel = ShalatViewModel();
     return Scaffold(
       appBar: AppBar(
+        title: Title(
+            color: Colors.blueAccent,
+            child: Text(
+              "After Shalat",
+              style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+            )),
         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
