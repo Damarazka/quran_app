@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/model/surah_model.dart';
 import 'package:quran_app/pages/detail_screen.dart';
+import 'package:quran_app/public_data.dart';
 import 'package:quran_app/viewModel/surahviewmodel.dart';
 
 class TabSurah extends StatelessWidget {
@@ -33,7 +34,9 @@ class TabSurah extends StatelessWidget {
   Widget _itemList({required BuildContext context, required Surah surah}) =>
       InkWell(
         onTap: () {
-          Navigator.pushNamed(context, DetailScreen.routeName,arguments: surah.nomor.toString());
+          Navigator.pushNamed(context, DetailScreen.routeName,
+              arguments: surah.nomor.toString());
+          PublicData.instance.message = surah.nama_latin;
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),

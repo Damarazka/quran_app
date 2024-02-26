@@ -5,41 +5,58 @@ import 'package:quran_app/component/tab_item.dart';
 import 'package:quran_app/pages/tabs/dzikr.dart';
 import 'package:quran_app/pages/tabs/doa.dart';
 import 'package:quran_app/pages/tabs/surah_tab.dart';
+import 'package:quran_app/public_data.dart';
 import 'package:quran_app/theme.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   static String routeName = 'home_screen';
-  const HomeScreen({super.key});
+
+  String lastRead = PublicData.instance.message;
+
+  String lastAyat = PublicData.instance.ayat;
+  HomeScreen({super.key});
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
   Widget build(BuildContext context) {
+    setState(() {
+      widget.lastRead = PublicData.instance.message;
+    });
     return Scaffold(
-      appBar: _appBar(),
-      body: _body(),
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 0,
+        leading: IconButton(
+          onPressed: () {},
+          icon: SvgPicture.asset('assets/svg/menu_icon.svg'),
+        ),
+        title: Text(
+          'Quran App',
+          style: GoogleFonts.poppins(
+              fontSize: 18, fontWeight: FontWeight.w600, color: primary),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  widget.lastRead = PublicData.instance.message;
+                });
+                print(PublicData.instance.message);
+                print(PublicData.instance.ayat);
+              },
+              icon: const Icon(Icons.save))
+        ],
+      ),
+      body: _body(widget.lastRead, widget.lastAyat),
       bottomNavigationBar: _bottomNavigationBar(),
     );
   }
 }
-
-AppBar _appBar() => AppBar(
-      centerTitle: true,
-      backgroundColor: Colors.white,
-      elevation: 0,
-      leading: IconButton(
-        onPressed: () {},
-        icon: SvgPicture.asset('assets/svg/menu_icon.svg'),
-      ),
-      title: Text(
-        'Quran App',
-        style: GoogleFonts.poppins(
-            fontSize: 18, fontWeight: FontWeight.w600, color: primary),
-      ),
-      actions: [
-        IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset('assets/svg/search_icon.svg'))
-      ],
-    );
 
 BottomNavigationBar _bottomNavigationBar() => BottomNavigationBar(
       type: BottomNavigationBarType.fixed,
@@ -65,41 +82,43 @@ BottomNavigationBarItem _bottomNavigationBarItem(
         ),
         label: label);
 
-DefaultTabController _body() => DefaultTabController(
-    length: 3,
-    child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 24),
-        child: NestedScrollView(
-          headerSliverBuilder:
-              (BuildContext context, bool innerBoxIsScrolled) => [
-            SliverToBoxAdapter(
-              child: _salam(),
-            ),
-            SliverAppBar(
-              pinned: true,
-              elevation: 0,
-              automaticallyImplyLeading: false,
-              shape: Border(
-                  bottom: BorderSide(
-                      width: 3, color: Colors.grey.withOpacity(0.1))),
-              bottom: PreferredSize(
-                  preferredSize: const Size.fromHeight(0),
-                  child: TabBar(
-                    labelColor: primary,
-                    indicatorColor: primary,
-                    indicatorWeight: 3,
-                    tabs: [
-                      itemTab(label: "Surah"),
-                      itemTab(label: "Dzikr"),
-                      itemTab(label: "Doa"),
-                    ],
-                  )),
-            )
-          ],
-          body: const TabBarView(children: [TabSurah(), TabDzikr(), TabDoa()]),
-        )));
+DefaultTabController _body(String lastRead, String lastAyat) =>
+    DefaultTabController(
+        length: 3,
+        child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: NestedScrollView(
+              headerSliverBuilder:
+                  (BuildContext context, bool innerBoxIsScrolled) => [
+                SliverToBoxAdapter(
+                  child: _salam(lastRead, lastAyat),
+                ),
+                SliverAppBar(
+                  pinned: true,
+                  elevation: 0,
+                  automaticallyImplyLeading: false,
+                  shape: Border(
+                      bottom: BorderSide(
+                          width: 3, color: Colors.grey.withOpacity(0.1))),
+                  bottom: PreferredSize(
+                      preferredSize: const Size.fromHeight(0),
+                      child: TabBar(
+                        labelColor: primary,
+                        indicatorColor: primary,
+                        indicatorWeight: 3,
+                        tabs: [
+                          itemTab(label: "Surah"),
+                          itemTab(label: "Dzikr"),
+                          itemTab(label: "Doa"),
+                        ],
+                      )),
+                )
+              ],
+              body: const TabBarView(
+                  children: [TabSurah(), TabDzikr(), TabDoa()]),
+            )));
 
-Column _salam() => Column(
+Column _salam(String lastRead, String lastAyat) => Column(
       children: [
         Text(
           "Assalamualaikum",
@@ -155,14 +174,14 @@ Column _salam() => Column(
                     height: 25,
                   ),
                   Text(
-                    "Al-Fatihah",
+                    lastRead,
                     style: GoogleFonts.poppins(
                         fontSize: 18,
                         fontWeight: FontWeight.w800,
                         color: Colors.white),
                   ),
                   Text(
-                    "Ayah No : 1",
+                    lastAyat,
                     style: GoogleFonts.poppins(
                         fontSize: 12,
                         fontWeight: FontWeight.w500,

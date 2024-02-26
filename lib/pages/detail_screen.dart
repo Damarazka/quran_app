@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quran_app/model/ayat_model.dart';
+import 'package:quran_app/pages/home_screen.dart';
+import 'package:quran_app/public_data.dart';
 import 'package:quran_app/viewModel/ayahviewmodel.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -15,21 +17,42 @@ class DetailScreen extends StatelessWidget {
     final AyahViewModel _viewModel = AyahViewModel();
     final assetsAudioPlayer = AssetsAudioPlayer();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Detail Ayat'),
-      ),
-      body: FutureBuilder(
-        future: _viewModel.getListAyah(id),
-        builder: (context, AsyncSnapshot<AyahModel> snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (snapshot.hasError) {
-            return Center(
-              child: Text('Error: ${snapshot.error}'),
-            );
-          } else if (snapshot.hasData) {
-            return ListView.separated(
+    return FutureBuilder(
+      future: _viewModel.getListAyah(id),
+      builder: (context, AsyncSnapshot<AyahModel> snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Text('Error: ${snapshot.error}'),
+          );
+        } else if (snapshot.hasData) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(snapshot.data!.namaLatin.toString()),
+              actions: [
+                IconButton(
+                    onPressed: () {
+                      assetsAudioPlayer.open(
+                        Audio.network(snapshot.data!.audio.toString()),
+                      );
+                      assetsAudioPlayer.play();
+                    },
+                    icon: const Icon(Icons.volume_up_rounded)),
+                IconButton(
+                    onPressed: () {
+                      assetsAudioPlayer.playOrPause();
+                    },
+                    icon: const Icon(Icons.stop_circle))
+              ],
+              leading: IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, HomeScreen.routeName);
+                },
+                icon: const Icon(Icons.arrow_back),
+              ),
+            ),
+            body: ListView.separated(
               itemBuilder: (context, index) => _itemList(
                 context: context,
                 ayahModel: snapshot.data!,
@@ -41,14 +64,14 @@ class DetailScreen extends StatelessWidget {
                 height: 1,
               ),
               itemCount: snapshot.data!.ayat!.length,
-            );
-          } else {
-            return const Center(
-              child: Text('Data tidak tersedia'),
-            );
-          }
-        },
-      ),
+            ),
+          );
+        } else {
+          return const Center(
+            child: Text('Data tidak tersedia'),
+          );
+        }
+      },
     );
   }
 
@@ -59,11 +82,8 @@ class DetailScreen extends StatelessWidget {
     required AssetsAudioPlayer assetsAudioPlayer,
   }) =>
       InkWell(
-        onTap: () {
-          assetsAudioPlayer.open(
-            Audio.network(ayahModel.audio.toString()),
-          );
-          assetsAudioPlayer.play();
+        onLongPress: () {
+          PublicData.instance.ayat = ayat.nomor.toString();
         },
         child: Padding(
           padding: const EdgeInsets.all(18),
