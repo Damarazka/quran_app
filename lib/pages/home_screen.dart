@@ -46,8 +46,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 setState(() {
                   widget.lastRead = PublicData.instance.message;
                 });
-                print(PublicData.instance.message);
-                print(PublicData.instance.ayat);
               },
               icon: const Icon(Icons.save))
         ],

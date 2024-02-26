@@ -48,6 +48,7 @@ class DetailScreen extends StatelessWidget {
               leading: IconButton(
                 onPressed: () {
                   Navigator.pushNamed(context, HomeScreen.routeName);
+                  assetsAudioPlayer.stop();
                 },
                 icon: const Icon(Icons.arrow_back),
               ),
