@@ -11,6 +11,13 @@ class AfterShalat extends StatelessWidget {
   Widget build(BuildContext context) {
     final ShalatViewModel _viewModel = ShalatViewModel();
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: FutureBuilder<List<Shalat>>(
           future: _viewModel.getListShalat(),
           builder: (context, snapsot) {

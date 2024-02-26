@@ -43,11 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
-                setState(() {
-                  widget.lastRead = PublicData.instance.message;
-                });
+                
               },
-              icon: const Icon(Icons.save))
+              icon: const Icon(Icons.search))
         ],
       ),
       body: _body(widget.lastRead, widget.lastAyat),

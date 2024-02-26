@@ -11,6 +11,13 @@ class EveningDzikr extends StatelessWidget {
   Widget build(BuildContext context) {
     final EveningViewModel _viewModel = EveningViewModel();
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: FutureBuilder<List<Evening>>(
           future: _viewModel.getListEvening(),
           builder: (context, snapsot) {

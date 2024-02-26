@@ -11,6 +11,13 @@ class MorningDzikr extends StatelessWidget {
   Widget build(BuildContext context) {
     final MorningViewModel _viewModel = MorningViewModel();
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: const Icon(Icons.arrow_back)),
+      ),
       body: FutureBuilder<List<Morning>>(
           future: _viewModel.getListMorning(),
           builder: (context, snapsot) {
